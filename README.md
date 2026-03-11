@@ -2,8 +2,6 @@
 <!-- SPDX-FileCopyrightText: Copyright 2026 Sam Blenny -->
 # Baochip SDK
 
-**DRAFT: WORK IN PROGRESS**
-
 This is a baremetal SDK for the Baochip Dabao Bao1x evaluation board. Most of
 the work here is about peripheral drivers, linker scripts, firmware blob
 signing, and examples to demonstrate driver usage. The strategy here is to do
