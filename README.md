@@ -11,7 +11,9 @@ drivers in no_std Rust for safety and make the public API usable from both Rust
 and C for compatibility.
 
 **CAUTION:** This is a proof of concept. I make no promises about maintaining
-this code once I've got it working. The point is to document how to do it.
+this code nor implementing missing features. The point of this is to document
+how to do bare metal stuff with the bao1x. Feel free to chop this up for parts
+and use it in your own projects.
 
 
 ## Roadmap
@@ -22,19 +24,12 @@ this code once I've got it working. The point is to document how to do it.
 
 3. ✅ Get MicroPython working with the minimal set of drivers.
 
-4. Add USB CDC-ACM serial support.
-
-5. Figure out how to build rv32e machine code blobs to run on the BIO cores and
-   how to get them working with rv32imac code for the main CPU.
-
-6. Do a documentation pass to make sure all the above are explained clearly.
-
-6. *Maybe:* Come back around for a USB CDC-NCM and UDP/IP stack pass. The Bao1x
-   has a relatively fast FS/HS USB controller but it only supports 4 endpoints.
-   Assuming 2 endpoints will always be used for CDC-ACM serial, that doesn't
-   leave much room for other modes of IO. Using the second pair of endpoints
-   for a virtual ethernet link would allow muxing whatever other types of IO
-   you might want over IP.
+4. Possible maybe future stuff:
+   - Convert Makefile rules for C library stuff to use the xpack toolchain
+   - Add USB CDC-ACM serial support
+   - Experiment with making rv32e apps for the BIO cores (LED drivers?)
+   - Write more docs
+   - More USB stuff like maybe CDC-NCM networking with an IP stack
 
 
 ## Dev Environment Setup
