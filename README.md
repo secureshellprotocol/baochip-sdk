@@ -36,7 +36,25 @@ These instructions are for Debian 13 (Trixie), but they should probably work
 with minimal modifications on whatever the latest Ubuntu LTS release is.
 You're on your own for adapting to other Linux flavors, Windows, or macOS.
 
-1. Install Rust using the rustup install procedure at:
+1. Install build essential, python3, gcc rv32 compiler, binutils, picolibc, 
+   and libsodium library:
+
+   ```
+   sudo apt install build-essential python3 \
+     binutils-riscv64-unknown-elf \
+     gcc-riscv64-unknown-elf \
+     picolibc-riscv64-unknown-elf \
+     libsodium-dev
+   ```
+
+   Picolibc includes are at `/usr/lib/picolibc/riscv64-unknown-elf/include`,
+   and `/usr/lib/picolibc/riscv64-unknown-elf/lib/release/rv32imac/ilp32` has
+   the release builds of the libraries. This is for Debian. YMMV for Ubuntu.
+
+   Libsodium is used for signing our compiled binary. 
+
+2. Install Rust using the rustup install procedure at:
+
    [rust-lang.org/learn/get-started/](https://rust-lang.org/learn/get-started/)
 
    If you're allergic to piping curl into a shell, download the script on your
@@ -44,24 +62,17 @@ You're on your own for adapting to other Linux flavors, Windows, or macOS.
    selecting the script's "Customize installation" option and telling it not to
    automatically modify your PATH, then modify PATH manually yourself.
 
-2. Install the riscv32imac-unknown-none-elf target with rustup:
+   You may have to re-source your shell's rc file (eg `source ~/.bashrc`) to
+   pick up any automatic PATH changes which haven't taken effect yet (if you
+   opted to do so)
+
+3. Install the riscv32imac-unknown-none-elf target and the llvm-tools component
+   with rustup:
 
    ```
-   rustup target add riscv32imac-unknown-none-elf
+   $ rustup target add riscv32imac-unknown-none-elf
+   $ rustup component add llvm-tools
    ```
-
-3. Install gcc rv32 compiler, binutils, and picolibc:
-
-   ```
-   sudo apt install binutils-riscv64-unknown-elf \
-     gcc-riscv64-unknown-elf \
-     picolibc-riscv64-unknown-elf
-   ```
-
-   Picolibc includes are at `/usr/lib/picolibc/riscv64-unknown-elf/include`,
-   and `/usr/lib/picolibc/riscv64-unknown-elf/lib/release/rv32imac/ilp32` has
-   the release builds of the libraries. This is for Debian. YMMV for Ubuntu.
-
 
 ## Build libbaochip_sdk.a Library
 
